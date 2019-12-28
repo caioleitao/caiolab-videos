@@ -15,6 +15,12 @@
     <title>CaioLab Videos</title>
   </head>
   <body>
+
+  <?php
+    require_once "includes/mysql_connection.php";
+    require_once "includes/functions.php";
+?>
+
   <nav class="navbar navbar-expand-lg navbar-light">
   <a class="navbar-brand" href="#">CaioLab Videos</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -41,21 +47,43 @@
 
     <!-- videoplayer -->
 
-    <div class="card mb-3 shadow">
-  <div class="row no-gutters">
-    <div class="col-sm-5">
-    <video controls autoplay src="videos/video2.mp4" class="card-img"></video>
-    </div>
-    <div class="col-sm-5">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        <p class="card-text"><small class="text-muted">published on: 27/12/2019</small></p>
-      </div>
-    </div>
-  </div>
-</div>
+<?php
+    $c = $_GET['v'] ?? 0;
+    $search = $database->query("SELECT * FROM videos where id='$c'");
 
+    if(!$search){
+        echo "<center>No videos found :( <br/><a href='index.php'>back to home page</a></center>";
+    } else{
+        $t = thumb($reg->image);
+        if($search->num_rows == 1){
+        $reg=$search->fetch_object();
+        echo "
+          
+        <div class='card mb-3 shadow'>
+        <div class='row no-gutters'>
+          <div class='col-sm-5'>
+          <video controls autoplay src='videos/$reg->video.mp4' class='card-img'></video>
+          </div>
+          <div class='col-sm-5'>
+            <div class='card-body'>
+              <h5 class='card-title'>$reg->title</h5>
+              <p class='card-text'>$reg->text</p>
+              <p class='card-text'><small class='text-muted'>published on: $reg->date</small></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+        ";
+        }
+    }
+    
+     
+?>
+
+<?php
+    include "includes/footer.php";
+?>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

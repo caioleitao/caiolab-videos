@@ -15,12 +15,43 @@
     <title>CaioLab Videos</title>
   </head>
   <body>
-    <div class="btn-group-vertical shadow">
-        <a href="" class="btn btn-lg btn-primary">Home</a>
-        <a href="" class="btn btn-lg btn-primary">teste</a>
-        <a href="" class="btn btn-lg btn-primary">teste</a>
-        <a href="" class="btn btn-lg btn-primary">teste</a>
-    </div>
+
+  <?php
+    require_once "includes/mysql_connection.php";
+    require_once "includes/functions.php";
+?>
+
+<div class="container">
+<div class="row">
+    <?php
+      $search = $database->query("SELECT * FROM videos order by id");
+      if(!search){
+        echo "Error to search";
+      } else{
+        if($search->num_rows == 0){
+        echo "No projects registered";
+      } else{
+          while($reg=$search->fetch_object()){
+          $t = thumb($reg->image);
+          echo "
+
+          <div class='row row-cols-1 row-cols-md-3'>
+          <div class='col mb-4'>
+          <div class='card' style='width: 18rem;'>
+     
+            <div class='card-body'>
+              <h5 class='card-title'>$reg->title</h5>
+              <a href='watch.php?v=$reg->id' class='btn btn-primary'>View video</a>
+            </div>
+          </div>
+          </div>
+          </div>
+
+          ";
+        }
+      }
+    }
+?>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
