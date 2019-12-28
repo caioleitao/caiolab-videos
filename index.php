@@ -17,41 +17,56 @@
   <body>
 
   <?php
+    include "includes/header.php";
     require_once "includes/mysql_connection.php";
     require_once "includes/functions.php";
 ?>
 
+<br/>  
+<h1 style='padding: 10px;' class="text-center">Explorer Videos</h1>
+<br/>
+<br/>
+
 <div class="container">
-<div class="row">
+<div class="row row-cols-1 row-cols-md-3">
+
     <?php
       $search = $database->query("SELECT * FROM videos order by id");
       if(!search){
         echo "Error to search";
       } else{
         if($search->num_rows == 0){
-        echo "No projects registered";
+        echo "No videos registered :(";
       } else{
           while($reg=$search->fetch_object()){
           $t = thumb($reg->image);
           echo "
+            
+          <div class='card-deck text-center' style='margin-left: 10px; margin-bottom: 40px;'>
+  <div class='card shadow'>
+    <video onmouseover='autoplay = true' src='videos/$reg->video.mp4#t=60' class='card-img-top'></video>
+    <div class='card-body'>
+      <h5 class='card-title'>$reg->title</h5>
+      <a href='watch.php?v=$reg->id' class='btn btn-primary'>View video</a>
+    </div>
+    <div class='card-footer'>
+      <small class='text-muted'>published on: $reg->date</small>
+    </div>
+  </div>
+</div>
 
-          <div class='row row-cols-1 row-cols-md-3'>
-          <div class='col mb-4'>
-          <div class='card' style='width: 18rem;'>
-     
-            <div class='card-body'>
-              <h5 class='card-title'>$reg->title</h5>
-              <a href='watch.php?v=$reg->id' class='btn btn-primary'>View video</a>
-            </div>
-          </div>
-          </div>
-          </div>
-
+          
           ";
         }
       }
     }
 ?>
+
+  </div>
+  </div>
+
+
+  
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

@@ -1,5 +1,5 @@
 <?php
-    $database = new mysqli("localhost", "user", "password", "database name");
+    $database = new mysqli("localhost", "phpmyadmin", "[]/][", "clvideos_database");
 
     if($database->connect_errno){
         echo "Error to database connection";
