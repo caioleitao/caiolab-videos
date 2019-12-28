@@ -1,2 +1,2 @@
-# cl-videos
+# CaioLab Videos
 a video platform for everyone
