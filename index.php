@@ -44,7 +44,7 @@
             
           <div class='card-deck text-center' style='margin-left: 10px; margin-bottom: 40px;'>
   <div class='card shadow'>
-    <video onmouseover='autoplay = true' src='videos/$reg->video.mp4#t=60' class='card-img-top'></video>
+    <video src='videos/$reg->video.mp4#t=60' class='card-img-top'></video>
     <div class='card-body'>
       <h5 class='card-title'>$reg->title</h5>
       <a href='watch.php?v=$reg->id' class='btn btn-primary'>View video</a>
